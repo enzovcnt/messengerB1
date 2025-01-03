@@ -167,3 +167,12 @@ function addNewMessageGeneral (){
     })
 }
 addNewMessageGeneral()
+
+function refresh(){
+    const btnRefresh = document.querySelector('.refreshBtn');
+    btnRefresh.addEventListener('click', ()=>{
+        allGeneral();
+        console.log("fraicheur de fruit")
+    })
+}
+refresh();

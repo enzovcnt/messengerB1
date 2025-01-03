@@ -10,14 +10,36 @@
 </head>
 <body>
 
-<div class="container loginPage d-block">
-    <input type="text" class="form-control inputUsername" placeholder="Username">
-    <input type="password" class="form-control inputPassword" placeholder="Password">
-    <button type="button" class="btn btn-primary loginBtn">Login</button>
+<nav class="navbar bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+            <p class="displayName"></p>
+            abRULSboZD
+        </a>
+    </div>
+</nav>
 
+
+<div class="container">
+    <div class="loginPage d-block">
+        <input type="text" class="form-control inputUsername" placeholder="Username">
+        <input type="password" class="form-control inputPassword" placeholder="Password">
+        <button type="button" class="btn btn-primary loginBtn">Login</button>
+    </div>
+
+    <div class="menu d-none">
+        <button type="button" class="btn btn-primary btn-lg general">Général</button>
+        <button type="button" class="btn btn-primary btn-lg privé">privé</button>
+    </div>
+
+    <div class="chatGeneral d-none">
+        <div class="displayChatGeneral d-flex" style="width: 75%; height: 75%;">
+        </div>
+        <input type="text" class="form-control inputChatGeneral" placeholder="Chat">
+    </div>
 </div>
 
-<p class="test d-none">bonjour tu es bien arrivé dans le chat</p>
 
 
 

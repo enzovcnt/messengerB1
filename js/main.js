@@ -106,13 +106,27 @@ function displayMessages(data) {
     const author = document.createElement('p');
     const content = document.createElement('p');
 
-    author.innerHTML = data.author.displayName;
-    author.classList.add('author');
+    author.innerHTML = data.author.displayName + ' : ';
+    author.classList.add('author', 'm-1');
     content.innerHTML = data.content;
-    content.classList.add('content');
+    content.classList.add('content', 'm-1');
 
+    switch (data.author.username) {
+        case 'emiliech':
+            author.classList.add('emilie');
+            break;
+            case 'enzo':
+                author.classList.add('enzo',);
+                break;
+                case 'arthur':
+                    author.classList.add('arthur');
+                    break;
+                    case 'chrisna':
+                    author.classList.add('chrisna');
+                    break;
+    }
 
-    divMessage.classList.add('divMessage');
+    divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
     divMessage.appendChild(author);
     divMessage.appendChild(content);
 

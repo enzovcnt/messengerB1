@@ -64,6 +64,7 @@ async function enterGeneral() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            return data
         })
 }
 
@@ -74,6 +75,7 @@ function apparitionGeneral() {
         menuGeneral.classList.add('d-none');
         displayGeneral.classList.remove('d-none');
         displayGeneral.classList.add('d-block');
+        allGeneral()
     })
 }
 
@@ -117,4 +119,3 @@ function displayMessages(data) {
     messageAll.appendChild(divMessage);
 }
 
-allGeneral()

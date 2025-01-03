@@ -8,6 +8,7 @@ let menuGeneral = document.querySelector('.menu')
 let logPage = document.querySelector('.loginPage')
 const displayGeneral = document.querySelector('.chatGeneral')
 
+
 async function login() {
     let params = {
         method: 'POST',
@@ -133,3 +134,36 @@ function displayMessages(data) {
     messageAll.appendChild(divMessage);
 }
 
+async function addMessagesGeneral(content) {
+        let paramNewGeneralMessage = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                content: content
+            })
+        }
+        return await fetch('https://b1messenger.esdlyon.dev/api/messages/new', paramNewGeneralMessage)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+                return json.token
+            })
+}
+
+function addNewMessageGeneral (){
+    const inputNewMessageGeneral = document.querySelector('.inputChatGeneral')
+    let btnNewChatGeneral = document.querySelector('.newChatGeneral')
+    btnNewChatGeneral.addEventListener('click', () => {
+        const content = inputNewMessageGeneral.value;
+        addMessagesGeneral(content)
+            .then((data) => {
+                console.log(data)
+            })
+        displayMessages()
+        inputNewMessageGeneral.value = "";
+    })
+}
+addNewMessageGeneral()

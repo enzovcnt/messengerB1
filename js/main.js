@@ -11,6 +11,7 @@ const displayGeneral = document.querySelector('.chatGeneral')
 
 
 
+
 async function login() {
     let params = {
         method: 'POST',
@@ -105,12 +106,12 @@ function allGeneral() {
 
 function displayMessages(data) {
     const messageAll = document.querySelector('.displayChatGeneral');
+
     const divMessage = document.createElement('div');
     const author = document.createElement('p');
     const content = document.createElement('p');
     const deleteButton = document.createElement('button');
     const editButton = document.createElement('button');
-
     author.innerHTML = data.author.displayName + ' : ';
     author.classList.add('author', 'm-1');
     content.innerHTML = data.content;
@@ -126,6 +127,11 @@ function displayMessages(data) {
                 divMessage.remove();
             })
     });
+
+    editButton.addEventListener('click', () => {
+        const modalEdit = new bootstrap.Modal(document.querySelector('.modalEdit')) //bootstrap à sa propre API
+        modalEdit.show();
+    })
 
     switch (data.author.username) {
         case 'emiliech':
@@ -217,7 +223,7 @@ async function deleteMessageGeneral(id) {
         })
 }
 
-async function modifMessage(edit){
+async function modifMessage(edit, id){
     if (!token) {
         console.error("Aucun token");
         return null;
@@ -237,5 +243,18 @@ async function modifMessage(edit){
     .then(json => {
         console.log(json)
         return json.token;
+    })
+}
+function editMessageGeneral (){
+    const inputEditMessageG = document.querySelector('.inputEditChatGeneral')
+    let btnEditMessageG = document.querySelector('.save')
+    btnEditMessageG.addEventListener('click', () => {
+        const edit = inputEditMessageG.value;
+        modifMessage(edit)
+            .then((data) => {
+                console.log(data)
+            })
+        displayMessages()
+        inputEditMessageG.value = "";
     })
 }

@@ -129,8 +129,15 @@ function displayMessages(data) {
     });
 
     editButton.addEventListener('click', () => {
-        const modalEdit = new bootstrap.Modal(document.querySelector('.modalEdit')) //bootstrap à sa propre API
+        const modalEdit = new bootstrap.Modal(document.querySelector('.modalEdit')) //bootstrap à sa propre API peut pas la modifier juste avec le DOM
         modalEdit.show();
+        const inputEditMessageG = document.querySelector('.inputEditChatGeneral');
+        inputEditMessageG.value = data.content;
+        const btnEditMessageG = document.querySelector('.save');
+        btnEditMessageG.setAttribute('data-id', data.id); //l'attribut data.id est donnée au string data-id donc le bouton contient comme attribut l'ID
+        btnEditMessageG.addEventListener('click', () => {
+            modalEdit.hide();
+        })
     })
 
     switch (data.author.username) {
@@ -250,11 +257,14 @@ function editMessageGeneral (){
     let btnEditMessageG = document.querySelector('.save')
     btnEditMessageG.addEventListener('click', () => {
         const edit = inputEditMessageG.value;
-        modifMessage(edit)
+        const id = btnEditMessageG.getAttribute('data-id'); //on donne l'attribut donc l'ID au bouton pour valider le changement
+        modifMessage(edit, id)
             .then((data) => {
                 console.log(data)
+                allGeneral()
             })
         displayMessages()
         inputEditMessageG.value = "";
     })
 }
+editMessageGeneral()

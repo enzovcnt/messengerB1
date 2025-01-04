@@ -108,10 +108,12 @@ function displayMessages(data) {
     const messageAll = document.querySelector('.displayChatGeneral');
 
     const divMessage = document.createElement('div');
+    const pp = document.createElement('img');
     const author = document.createElement('p');
     const content = document.createElement('p');
     const deleteButton = document.createElement('button');
     const editButton = document.createElement('button');
+    divMessage.classList.add('messages');
     author.innerHTML = data.author.displayName + ' : ';
     author.classList.add('author', 'm-1');
     content.innerHTML = data.content;
@@ -143,9 +145,11 @@ function displayMessages(data) {
     switch (data.author.username) {
         case 'emiliech':
             author.classList.add('emilie');
+            pp.innerHTML = data.author.image.imageName;
             break;
             case 'enzo':
                 author.classList.add('enzo',);
+                pp.innerHTML = data.author.image.imageName;
                 break;
                 case 'arthur':
                     author.classList.add('arthur');
@@ -158,8 +162,10 @@ function displayMessages(data) {
     divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
     divMessage.appendChild(author);
     divMessage.appendChild(content);
-    divMessage.appendChild(deleteButton);
-    divMessage.appendChild(editButton);
+    if (data.author.username === 'enzo') {
+        divMessage.appendChild(deleteButton);
+        divMessage.appendChild(editButton);
+    }
 
     messageAll.appendChild(divMessage);
 }
@@ -255,12 +261,17 @@ async function modifMessage(edit, id){
 function editMessageGeneral (){
     const inputEditMessageG = document.querySelector('.inputEditChatGeneral')
     let btnEditMessageG = document.querySelector('.save')
+
     btnEditMessageG.addEventListener('click', () => {
+
         const edit = inputEditMessageG.value;
         const id = btnEditMessageG.getAttribute('data-id'); //on donne l'attribut donc l'ID au bouton pour valider le changement
         modifMessage(edit, id)
             .then((data) => {
                 console.log(data)
+                //const editMessage = document.createElement('p')
+                //editMessage.classList.add('fs-6', 'messageModifié', 'fw-lighter', 'ms-4')
+                //ajouter du texte pour indiquer que le message est modifié
                 allGeneral()
             })
         displayMessages()

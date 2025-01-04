@@ -7,7 +7,7 @@ const logBtn = document.querySelector('.loginBtn')
 let menuGeneral = document.querySelector('.menu')
 let logPage = document.querySelector('.loginPage')
 const displayGeneral = document.querySelector('.chatGeneral')
-const deleteBtn = document.querySelector('.deleteButton')
+
 
 
 
@@ -109,6 +109,7 @@ function displayMessages(data) {
     const author = document.createElement('p');
     const content = document.createElement('p');
     const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
 
     author.innerHTML = data.author.displayName + ' : ';
     author.classList.add('author', 'm-1');
@@ -116,6 +117,8 @@ function displayMessages(data) {
     content.classList.add('content', 'm-1');
     deleteButton.innerHTML = data.id + 'supp'
     deleteButton.classList.add('btn', 'bg-warning', 'm-1', 'deleteButton');
+    editButton.classList.add('btn', 'bg-info', 'm-1', 'editButton');
+    editButton.innerHTML = data.id + 'edit';
 
     deleteButton.addEventListener('click', () => {
         deleteMessageGeneral(data.id)
@@ -143,6 +146,7 @@ function displayMessages(data) {
     divMessage.appendChild(author);
     divMessage.appendChild(content);
     divMessage.appendChild(deleteButton);
+    divMessage.appendChild(editButton);
 
     messageAll.appendChild(divMessage);
 }
@@ -209,6 +213,29 @@ async function deleteMessageGeneral(id) {
         .then(res => res.json())
         .then(json => {
             console.log(json)
-            return json.token
+            return json.token;
         })
+}
+
+async function modifMessage(edit){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramModif = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            content: edit
+        })
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/messages/${id}/edit`, paramModif)
+        .then(res => res.json())
+    .then(json => {
+        console.log(json)
+        return json.token;
+    })
 }

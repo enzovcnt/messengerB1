@@ -7,6 +7,8 @@ const logBtn = document.querySelector('.loginBtn')
 let menuGeneral = document.querySelector('.menu')
 let logPage = document.querySelector('.loginPage')
 const displayGeneral = document.querySelector('.chatGeneral')
+const deleteBtn = document.querySelector('.deleteButton')
+
 
 
 async function login() {
@@ -49,7 +51,7 @@ function enterMessengerMenu() {
 enterMessengerMenu()
 
 async function enterGeneral() {
-    if (!token) {
+    if (!token) { //permet de ne pas lancer la fonction tant que pas de token
         console.error("Aucun token");
         return null;
     }
@@ -106,11 +108,21 @@ function displayMessages(data) {
     const divMessage = document.createElement('div');
     const author = document.createElement('p');
     const content = document.createElement('p');
+    const deleteButton = document.createElement('button');
 
     author.innerHTML = data.author.displayName + ' : ';
     author.classList.add('author', 'm-1');
     content.innerHTML = data.content;
     content.classList.add('content', 'm-1');
+    deleteButton.innerHTML = data.id + 'supp'
+    deleteButton.classList.add('btn', 'bg-warning', 'm-1', 'deleteButton');
+
+    deleteButton.addEventListener('click', () => {
+        deleteMessageGeneral(data.id)
+            .then(() => {
+                divMessage.remove();
+            })
+    });
 
     switch (data.author.username) {
         case 'emiliech':
@@ -130,11 +142,16 @@ function displayMessages(data) {
     divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
     divMessage.appendChild(author);
     divMessage.appendChild(content);
+    divMessage.appendChild(deleteButton);
 
     messageAll.appendChild(divMessage);
 }
 
 async function addMessagesGeneral(content) {
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
         let paramNewGeneralMessage = {
             method: 'POST',
             headers: {
@@ -176,3 +193,22 @@ function refresh(){
     })
 }
 refresh();
+
+async function deleteMessageGeneral(id) {
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramDelete = {
+        method: 'DELETE',
+        headers: {
+            "Authorization": "Bearer " + token
+        },
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/messages/delete/${id}`, paramDelete)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token
+        })
+}

@@ -125,10 +125,17 @@ function displayMessages(data) {
     pp.classList.add('profilePicture');
 
     deleteButton.addEventListener('click', () => {
-        deleteMessageGeneral(data.id)
-            .then(() => {
-                divMessage.remove();
-            })
+        const modalDelete = new bootstrap.Modal(document.querySelector('.modalDelete'));
+        modalDelete.show();
+        const btnConfirme = document.querySelector('.confirmer');
+        btnConfirme.addEventListener('click', () => {
+            deleteMessageGeneral(data.id)
+                .then(() => {
+                    divMessage.remove();
+                })
+            modalDelete.hide();
+        })
+
     });
 
     editButton.addEventListener('click', () => {
@@ -154,9 +161,11 @@ function displayMessages(data) {
                 break;
                 case 'arthur':
                     author.classList.add('arthur');
+                    pp.innerHTML = data.author.image.imageName;
                     break;
                     case 'chrisna':
                     author.classList.add('chrisna');
+                    pp.innerHTML = data.author.image.imageName;
                     break;
     }
 

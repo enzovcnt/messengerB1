@@ -122,6 +122,7 @@ function displayMessages(data) {
     deleteButton.classList.add('btn', 'bg-warning', 'm-1', 'deleteButton');
     editButton.classList.add('btn', 'bg-info', 'm-1', 'editButton');
     editButton.innerHTML = data.id + 'edit';
+    pp.classList.add('profilePicture');
 
     deleteButton.addEventListener('click', () => {
         deleteMessageGeneral(data.id)
@@ -160,8 +161,10 @@ function displayMessages(data) {
     }
 
     divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
+    divMessage.appendChild(pp)
     divMessage.appendChild(author);
     divMessage.appendChild(content);
+
     if (data.author.username === 'enzo') {
         divMessage.appendChild(deleteButton);
         divMessage.appendChild(editButton);

@@ -104,6 +104,8 @@ function allGeneral() {
             })
 }
 
+
+
 function displayMessages(data) {
     const messageAll = document.querySelector('.displayChatGeneral');
 
@@ -113,6 +115,26 @@ function displayMessages(data) {
     const content = document.createElement('p');
     const deleteButton = document.createElement('button');
     const editButton = document.createElement('button');
+
+    //collapse bootstrap
+    const collapse = document.createElement('p');
+    collapse.classList.add('d-inline-flex', 'gap-1');
+    const btnResponse = document.createElement('button');
+    btnResponse.classList.add('btn', 'btn-primary');
+    const collapseDiv = document.createElement('div');
+    collapseDiv.classList.add('collapse');
+    //collapseDiv.id = 'collapseExample';
+    const cardDiv = document.createElement('div');
+    cardDiv.classList.add('card', 'card-body');
+    btnResponse.setAttribute('data-bs-toggle', 'collapse');
+    //btnResponse.setAttribute('data-bs-target', '#collapseExample');
+    btnResponse.setAttribute('aria-expanded', 'false');
+    //btnResponse.setAttribute('aria-controls', 'collapseExample');
+    btnResponse.innerHTML = 'Response';
+    collapse.appendChild(btnResponse);
+    collapseDiv.appendChild(cardDiv);
+    //------
+
     divMessage.classList.add('messages');
     author.innerHTML = data.author.displayName + ' : ';
     author.classList.add('author', 'm-1');
@@ -124,6 +146,8 @@ function displayMessages(data) {
     editButton.innerHTML = data.id + 'edit';
     pp.classList.add('profilePicture');
 
+
+
     deleteButton.addEventListener('click', () => {
         const modalDelete = new bootstrap.Modal(document.querySelector('.modalDelete'));
         modalDelete.show();
@@ -133,7 +157,6 @@ function displayMessages(data) {
                 .then(() => {
                     divMessage.remove();
                 })
-            modalDelete.hide();
         })
 
     });
@@ -145,34 +168,53 @@ function displayMessages(data) {
         inputEditMessageG.value = data.content;
         const btnEditMessageG = document.querySelector('.save');
         btnEditMessageG.setAttribute('data-id', data.id); //l'attribut data.id est donnée au string data-id donc le bouton contient comme attribut l'ID
-        btnEditMessageG.addEventListener('click', () => {
-            modalEdit.hide();
-        })
+
     })
 
     switch (data.author.username) {
         case 'emiliech':
             author.classList.add('emilie');
             pp.innerHTML = data.author.image.imageName;
+            btnResponse.setAttribute('data-bs-target', '#collapseEmilie');
+            btnResponse.setAttribute('aria-controls', 'collapseEmilie');
+            collapseDiv.id = 'collapseEmilie';
+            cardDiv.innerHTML = data.response.content;
             break;
             case 'enzo':
                 author.classList.add('enzo',);
                 pp.innerHTML = data.author.image.imageName;
+                btnResponse.setAttribute('data-bs-target', '#collapseEnzo');
+                btnResponse.setAttribute('aria-controls', 'collapseEnzo');
+                collapseDiv.id = 'collapseEnzo';
+                cardDiv.innerHTML = data.response.content;
                 break;
                 case 'arthur':
                     author.classList.add('arthur');
                     pp.innerHTML = data.author.image.imageName;
+                    btnResponse.setAttribute('data-bs-target', '#collapseArthur');
+                    btnResponse.setAttribute('aria-controls', 'collapseArthur');
+                    collapseDiv.id = 'collapseArthur';
+                    cardDiv.innerHTML = data.response.content;
                     break;
                     case 'chrisna':
                     author.classList.add('chrisna');
                     pp.innerHTML = data.author.image.imageName;
+                    btnResponse.setAttribute('data-bs-target', '#collapseChrisna');
+                    btnResponse.setAttribute('aria-controls', 'collapseChrisna');
+                    collapseDiv.id = 'collapseChrisna';
+                    cardDiv.innerHTML = data.response.content;
                     break;
     }
+
+
+
 
     divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
     divMessage.appendChild(pp)
     divMessage.appendChild(author);
     divMessage.appendChild(content);
+    divMessage.appendChild(collapse);
+    divMessage.appendChild(collapseDiv);
 
     if (data.author.username === 'enzo') {
         divMessage.appendChild(deleteButton);
@@ -181,6 +223,8 @@ function displayMessages(data) {
 
     messageAll.appendChild(divMessage);
 }
+
+
 
 async function addMessagesGeneral(content) {
     if (!token) {
@@ -291,3 +335,27 @@ function editMessageGeneral (){
     })
 }
 editMessageGeneral()
+
+async function responseMessage(id, response){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramResponse = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            content: response
+        })
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/responses/${id}/new`, paramResponse)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token;
+        })
+}
+

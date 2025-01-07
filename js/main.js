@@ -378,3 +378,27 @@ function newDisplayName(){
     })
 }
 newDisplayName()
+
+async function newProfilePicture(){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramNewPP = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+        body: JSON.stringify({
+            content: content
+        })
+    }
+    return await fetch('https://b1messenger.esdlyon.dev/api/messages/new', paramNewGeneralMessage)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token
+        })
+}
+

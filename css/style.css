@@ -37,4 +37,9 @@
 .navbare{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+}
+.navDisplayName{
+    display: flex;
+    flex-direction: row;
 }

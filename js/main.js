@@ -31,6 +31,7 @@ async function login() {
         })
 }
 
+
 function enterMessengerMenu() {
 
     logBtn.addEventListener('click', () => {
@@ -51,7 +52,7 @@ function enterMessengerMenu() {
 }
 enterMessengerMenu()
 
-async function enterGeneral() {
+async function enterGeneral(data) {
     if (!token) { //permet de ne pas lancer la fonction tant que pas de token
         console.error("Aucun token");
         return null;
@@ -117,22 +118,22 @@ function displayMessages(data) {
     const editButton = document.createElement('button');
 
     //collapse bootstrap
-    const collapse = document.createElement('p');
-    collapse.classList.add('d-inline-flex', 'gap-1');
-    const btnResponse = document.createElement('button');
-    btnResponse.classList.add('btn', 'btn-primary');
-    const collapseDiv = document.createElement('div');
-    collapseDiv.classList.add('collapse');
+    //const collapse = document.createElement('p');
+    //collapse.classList.add('d-inline-flex', 'gap-1');
+    //const btnResponse = document.createElement('button');
+    //btnResponse.classList.add('btn', 'btn-primary');
+    //const collapseDiv = document.createElement('div');
+    //collapseDiv.classList.add('collapse');
     //collapseDiv.id = 'collapseExample';
-    const cardDiv = document.createElement('div');
-    cardDiv.classList.add('card', 'card-body');
-    btnResponse.setAttribute('data-bs-toggle', 'collapse');
+    //const cardDiv = document.createElement('div');
+    //cardDiv.classList.add('card', 'card-body');
+    //btnResponse.setAttribute('data-bs-toggle', 'collapse');
     //btnResponse.setAttribute('data-bs-target', '#collapseExample');
-    btnResponse.setAttribute('aria-expanded', 'false');
+    //btnResponse.setAttribute('aria-expanded', 'false');
     //btnResponse.setAttribute('aria-controls', 'collapseExample');
-    btnResponse.innerHTML = 'Response';
-    collapse.appendChild(btnResponse);
-    collapseDiv.appendChild(cardDiv);
+    //btnResponse.innerHTML = 'Response';
+    //collapse.appendChild(btnResponse);
+    //collapseDiv.appendChild(cardDiv);
     //------
 
     divMessage.classList.add('messages');
@@ -174,35 +175,35 @@ function displayMessages(data) {
     switch (data.author.username) {
         case 'emiliech':
             author.classList.add('emilie');
-            pp.innerHTML = data.author.image.imageName;
-            btnResponse.setAttribute('data-bs-target', '#collapseEmilie');
-            btnResponse.setAttribute('aria-controls', 'collapseEmilie');
-            collapseDiv.id = 'collapseEmilie';
-            cardDiv.innerHTML = data.response.content;
+            pp.src = data.author.image.imageName;
+            //btnResponse.setAttribute('data-bs-target', '#collapseEmilie');
+            //btnResponse.setAttribute('aria-controls', 'collapseEmilie');
+            //collapseDiv.id = 'collapseEmilie';
+            //cardDiv.innerHTML = data.response.content;
             break;
             case 'enzo':
                 author.classList.add('enzo',);
-                pp.innerHTML = data.author.image.imageName;
-                btnResponse.setAttribute('data-bs-target', '#collapseEnzo');
-                btnResponse.setAttribute('aria-controls', 'collapseEnzo');
-                collapseDiv.id = 'collapseEnzo';
-                cardDiv.innerHTML = data.response.content;
+                pp.src = data.author.image.imageName;
+                //btnResponse.setAttribute('data-bs-target', '#collapseEnzo');
+                //btnResponse.setAttribute('aria-controls', 'collapseEnzo');
+                //collapseDiv.id = 'collapseEnzo';
+                //cardDiv.innerHTML = data.response.content;
                 break;
                 case 'arthur':
                     author.classList.add('arthur');
-                    pp.innerHTML = data.author.image.imageName;
-                    btnResponse.setAttribute('data-bs-target', '#collapseArthur');
-                    btnResponse.setAttribute('aria-controls', 'collapseArthur');
-                    collapseDiv.id = 'collapseArthur';
-                    cardDiv.innerHTML = data.response.content;
+                    pp.src = data.author.image.imageName;
+                    //btnResponse.setAttribute('data-bs-target', '#collapseArthur');
+                    //btnResponse.setAttribute('aria-controls', 'collapseArthur');
+                    //collapseDiv.id = 'collapseArthur';
+                    //cardDiv.innerHTML = data.response.content;
                     break;
                     case 'chrisna':
                     author.classList.add('chrisna');
-                    pp.innerHTML = data.author.image.imageName;
-                    btnResponse.setAttribute('data-bs-target', '#collapseChrisna');
-                    btnResponse.setAttribute('aria-controls', 'collapseChrisna');
-                    collapseDiv.id = 'collapseChrisna';
-                    cardDiv.innerHTML = data.response.content;
+                    pp.src = data.author.image.imageName;
+                        //btnResponse.setAttribute('data-bs-target', '#collapseChrisna');
+                        //btnResponse.setAttribute('aria-controls', 'collapseChrisna');
+                        // collapseDiv.id = 'collapseChrisna';
+                        // cardDiv.innerHTML = data.response.content;
                     break;
     }
 
@@ -213,8 +214,8 @@ function displayMessages(data) {
     divMessage.appendChild(pp)
     divMessage.appendChild(author);
     divMessage.appendChild(content);
-    divMessage.appendChild(collapse);
-    divMessage.appendChild(collapseDiv);
+    //divMessage.appendChild(collapse);
+    //divMessage.appendChild(collapseDiv);
 
     if (data.author.username === 'enzo') {
         divMessage.appendChild(deleteButton);
@@ -336,22 +337,22 @@ function editMessageGeneral (){
 }
 editMessageGeneral()
 
-async function responseMessage(id, response){
+async function editDisplayName(displayName){
     if (!token) {
         console.error("Aucun token");
         return null;
     }
-    let paramResponse = {
-        method: 'POST',
+    let paramEditDisplayName = {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             "Authorization": "Bearer " + token
         },
         body: JSON.stringify({
-            content: response
+            displayName: displayName
         })
     }
-    return await fetch(`https://b1messenger.esdlyon.dev/api/responses/${id}/new`, paramResponse)
+    return await fetch(`https://b1messenger.esdlyon.dev/api/profile/edit`, paramEditDisplayName)
         .then(res => res.json())
         .then(json => {
             console.log(json)
@@ -359,3 +360,21 @@ async function responseMessage(id, response){
         })
 }
 
+function newDisplayName(){
+    const inputEditDisplayName = document.querySelector('.inputEditDisplayName')
+    let btnEditDisplayName = document.querySelector('.btnDisplayName')
+
+    btnEditDisplayName.addEventListener('click', () => {
+
+        const displayName = inputEditDisplayName.value;
+        editDisplayName(displayName)
+            .then((data) => {
+                console.log(data)
+                //const editMessage = document.createElement('p')
+                //editMessage.classList.add('fs-6', 'messageModifié', 'fw-lighter', 'ms-4')
+                //ajouter du texte pour indiquer que le message est modifié
+            })
+        inputEditDisplayName.value = "";
+    })
+}
+newDisplayName()

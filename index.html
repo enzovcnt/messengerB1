@@ -10,37 +10,62 @@
 </head>
 <body>
 
-<nav class="navbar bg-primary nav">
+<nav class="navbar nav">
     <div class="navbare">
-        <div class="logo">
-            <img src="" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        </div>
-        <div class="navDisplayName">
-            <p class="displayName"></p>
-            <input type="text" class="form-control inputEditDisplayName" placeholder="newDisplayName">
-            <button type="button" class="btn btn-primary btnDisplayName">Valider</button>
-        </div>
-        abRULSboZD
+        <img src="/home/enzo/messengerB1/image/logo.png" alt="Logo" width="70" height="70" class="imgLogo">
+        <p class="displayName"></p>
+
     </div>
 </nav>
 
 
-<div class="container">
-    <div class="loginPage d-block">
+<div class="container-sm principal">
+    <div class="loginPage">
+        <h1 class="titre">Messagerie</h1>
         <input type="text" class="form-control inputUsername" placeholder="Username">
         <input type="password" class="form-control inputPassword" placeholder="Password">
-        <button type="button" class="btn btn-primary loginBtn">Login</button>
+        <button type="button" class="btn btn-lg btn-primary loginBtn">Login</button>
     </div>
 
     <div class="menu d-none">
-        <button type="button" class="btn btn-primary btn-lg general">Général</button>
-        <button type="button" class="btn btn-primary btn-lg privé">privé</button>
+        <div class="menu1">
+            <button type="button" class="btn btn-primary btn-lg general">Général</button>
+            <button type="button" class="btn btn-primary btn-lg privé">Privé</button>
+        </div>
+
+        <div class="menu2">
+            <input type="text" class="form-control inputEditDisplayName " placeholder="newDisplayName">
+            <button type="button" class="btn btn-primary btn-lg btnDisplayName ">Valider</button>
+        </div>
+
     </div>
 
     <div class="chatGeneral d-none">
         <div class="displayChatGeneral d-flex"></div>
         <input type="text" class="form-control inputChatGeneral" placeholder="Chat">
         <button type="button" class="btn btn-primary btn-lg newChatGeneral">Add</button>
+        <button type="button" class="btn btn-primary btn-lg refreshBtn">Refresh</button>
+    </div>
+
+    <div class="chooseChat d-none">
+        <div class="chooseChat2">
+            <div class="private1">
+                <button type="button" class="btn btn-primary btn-lg btnArthur">Arthur</button>
+            </div>
+            <div class="private2">
+                <button type="button" class="btn btn-primary btn-lg btnEmilie">Emilie</button>
+            </div>
+            <div class="private3">
+                <button type="button" class="btn btn-primary btn-lg btnChrisna">Chrisna</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="chatPrivate d-none">
+        <div class="displayChatPrivate d-flex"></div>
+        <input type="text" class="form-control inputChatPrivate" placeholder="Chat">
+        <button type="button" class="btn btn-primary btn-lg newChatPrivate">Add</button>
         <button type="button" class="btn btn-primary btn-lg refreshBtn">Refresh</button>
     </div>
 
@@ -61,7 +86,7 @@
                     <p>Êtes vous sûr de vouloir supprimer le message ?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary confirmer">Save changes</button>
                 </div>
             </div>
@@ -80,7 +105,7 @@
                     <input type="text" class="form-control inputEditChatGeneral" placeholder="edit">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary save">save</button>
                 </div>
             </div>

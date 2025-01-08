@@ -7,7 +7,15 @@ const logBtn = document.querySelector('.loginBtn')
 let menuGeneral = document.querySelector('.menu')
 let logPage = document.querySelector('.loginPage')
 const displayGeneral = document.querySelector('.chatGeneral')
+const chatPrivate = document.querySelector('.chatPrivate')
+const displayPrivate = document.querySelector('.displayChatPrivate')
+const btnPrivate = document.querySelector('.privé')
+const chooseChat = document.querySelector('.chooseChat')
+const btnArthur = document.querySelector('.btnArthur')
+const btnEmilie = document.querySelector('.btnEmilie')
+const btnChrisna = document.querySelector('.btnChrisna')
 
+//abRULSboZD = mdp
 
 
 
@@ -41,7 +49,7 @@ function enterMessengerMenu() {
                 console.log(data)
                 if (token) {
                     menuGeneral.classList.remove('d-none');
-                    menuGeneral.classList.add('d-block');
+                    menuGeneral.classList.add('d-flex');
                     logPage.classList.remove('d-block');
                     logPage.classList.add('d-none');
                 } else {
@@ -73,6 +81,98 @@ async function enterGeneral(data) {
         })
 }
 
+async function privateMessageChrisna(){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramPrivateMessageChrisna = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/private/conversation/1`, paramPrivateMessageChrisna)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token;
+        })
+}
+async function privateMessageEmilie(){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramPrivateMessageEmilie = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/private/conversation/5`, paramPrivateMessageEmilie)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token;
+        })
+}
+async function privateMessageArthur(){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+    let paramPrivateMessageArthur = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+    }
+    return await fetch(`https://b1messenger.esdlyon.dev/api/private/conversation/15`, paramPrivateMessageArthur)
+        .then(res => res.json())
+        .then(json => {
+            console.log(json)
+            return json.token;
+        })
+}
+
+
+function apparitionChoosePrivate() {
+    btnPrivate.addEventListener('click', () => {
+        menuGeneral.classList.remove('d-block');
+        menuGeneral.classList.add('d-none');
+        chooseChat.classList.remove('d-none');
+        chooseChat.classList.add('d-block');
+    })
+}
+apparitionChoosePrivate()
+
+function apparitionMessagePrivate() {
+    btnArthur.addEventListener('click', () => {
+        chooseChat.classList.remove('d-block');
+        chooseChat.classList.add('d-none');
+        chatPrivate.classList.remove('d-none');
+        chatPrivate.classList.add('d-block');
+    })
+    btnEmilie.addEventListener('click', () => {
+        chooseChat.classList.remove('d-block');
+        chooseChat.classList.add('d-none');
+        chatPrivate.classList.remove('d-none');
+        chatPrivate.classList.add('d-block');
+    })
+    btnChrisna.addEventListener('click', () => {
+        chooseChat.classList.remove('d-block');
+        chooseChat.classList.add('d-none');
+        chatPrivate.classList.remove('d-none');
+        chatPrivate.classList.add('d-block');
+        privateChrisna()
+    })
+}
+
+apparitionMessagePrivate()
 
 function apparitionGeneral() {
     btnGeneral.addEventListener('click', () => {
@@ -86,7 +186,22 @@ function apparitionGeneral() {
 
 apparitionGeneral()
 
+function privateChrisna() {
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
 
+    displayPrivate.innerHTML = ''
+
+    privateMessageChrisna()
+        .then((data) => {
+            console.log(data);
+            data.forEach(element => {
+                displayMessages(element);
+            })
+        })
+}
 
 function allGeneral() {
     if (!token) {
@@ -104,8 +219,16 @@ function allGeneral() {
                 })
             })
 }
-
-
+//pas fini
+function displayMessagesPrivate(data){
+    const messageAllPrivate = document.querySelectorAll('.displayChatPrivate')
+    const divMessage = document.createElement('div');
+    const pp = document.createElement('img');
+    const author = document.createElement('p');
+    const content = document.createElement('p');
+    const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
+}
 
 function displayMessages(data) {
     const messageAll = document.querySelector('.displayChatGeneral');
@@ -142,8 +265,8 @@ function displayMessages(data) {
     content.innerHTML = data.content;
     content.classList.add('content', 'm-1');
     deleteButton.innerHTML = data.id + 'supp'
-    deleteButton.classList.add('btn', 'bg-warning', 'm-1', 'deleteButton');
-    editButton.classList.add('btn', 'bg-info', 'm-1', 'editButton');
+    deleteButton.classList.add('btn', 'm-1', 'deleteButton');
+    editButton.classList.add('btn', 'm-1', 'editButton');
     editButton.innerHTML = data.id + 'edit';
     pp.classList.add('profilePicture');
 
@@ -210,7 +333,7 @@ function displayMessages(data) {
 
 
 
-    divMessage.classList.add('divMessage', 'border', 'rounded', 'm-1');
+    divMessage.classList.add('divMessage', 'm-1');
     divMessage.appendChild(pp)
     divMessage.appendChild(author);
     divMessage.appendChild(content);
@@ -394,7 +517,7 @@ async function newProfilePicture(){
             content: content
         })
     }
-    return await fetch('https://b1messenger.esdlyon.dev/api/messages/new', paramNewGeneralMessage)
+    return await fetch('https://b1messenger.esdlyon.dev/api/messages/new', paramNewPP)
         .then(res => res.json())
         .then(json => {
             console.log(json)

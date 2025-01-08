@@ -1,11 +1,43 @@
 .nav{
     height: 10vh;
+    background-color: darkblue;
+    display: flex;
+    justify-content: space-around;
+}
+.inputEditDisplayName{
+    height: 40px;
+}
+.principal{
+    background-color: beige;
+    height: 90vh;
+}
+.loginPage{
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.titre{
+    margin-bottom: 10vh;
+    font-size: 5vh;
+}
+.loginBtn{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+    margin-top: 10vh;
 }
 
 .chatGeneral{
-    height: 90vh;
+    height: 80vh;
 }
+
 .displayChatGeneral{
+    flex-direction: column;
+    max-height: 90%;
+    overflow-y: scroll;
+}
+.displayChatPrivate{
     flex-direction: column;
     max-height: 90%;
     overflow-y: scroll;
@@ -38,8 +70,123 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .navDisplayName{
     display: flex;
     flex-direction: row;
+}
+.btnDisplayName{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+
+.menu{
+    flex-direction: column;
+    height: 85vh;
+}
+.menu1{
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+.menu2{
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.general{
+    height: 90%;
+    width: 50%;
+    border-radius: 0;
+    border-right-color: white;
+    border-bottom-color: saddlebrown;
+    border-left-color: saddlebrown;
+    border-top-color: saddlebrown;
+    background-color: saddlebrown;
+
+}
+.privé{
+    height: 90%;
+    width: 50%;
+    border-radius: 0;
+    border-right-color: saddlebrown;
+    border-bottom-color: saddlebrown;
+    border-left-color: white;
+    border-top-color: saddlebrown;
+    background-color: saddlebrown;
+}
+
+.divMessage{
+    border: 1px solid saddlebrown;
+    border-radius: 16px;
+}
+.newChatGeneral{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.refreshBtn{
+    background-color: rosybrown;
+    border-color: rosybrown;
+}
+.deleteButton{
+    background-color: darkred;
+}
+.editButton{
+    background-color: goldenrod;
+}
+.chooseChat{
+    height: 80vh;
+}
+.private1{
+    height: 33%;
+}
+.private2{
+    height: 33%;
+}
+.private3{
+    height: 33%;
+}
+.btnArthur{
+    height: 100%;
+    width: 100%;
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.btnEmilie{
+    height: 100%;
+    width: 100%;
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.btnChrisna{
+    height: 100%;
+    width: 100%;
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.chooseChat2{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+}
+.newChatPrivate{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.close{
+    background-color: darkred;
+    border-color: darkred;
+}
+.confirmer{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
+}
+.save{
+    background-color: saddlebrown;
+    border-color: saddlebrown;
 }

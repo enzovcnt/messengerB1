@@ -14,6 +14,8 @@ const chooseChat = document.querySelector('.chooseChat')
 const btnArthur = document.querySelector('.btnArthur')
 const btnEmilie = document.querySelector('.btnEmilie')
 const btnChrisna = document.querySelector('.btnChrisna')
+const displayNameProfile = document.querySelector('.displayName')
+const imagePP = document.querySelector('.imageProfile')
 
 //abRULSboZD = mdp
 
@@ -27,8 +29,8 @@ async function login() {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            username: 'enzo',
-            password: 'abRULSboZD'
+            username: username.value,
+            password: password.value,
         })
     }
     return await fetch('https://b1messenger.esdlyon.dev/login', params)
@@ -43,7 +45,7 @@ async function login() {
 function enterMessengerMenu() {
 
     logBtn.addEventListener('click', () => {
-        login(username.value = 'enzo', password.value = 'abRULSboZD')
+        login()
             .then((data) => {
             token = data
                 console.log(data)
@@ -52,6 +54,7 @@ function enterMessengerMenu() {
                     menuGeneral.classList.add('d-flex');
                     logPage.classList.remove('d-block');
                     logPage.classList.add('d-none');
+                    nameProfile()
                 } else {
                     console.error("pas de token encore");
                 }
@@ -80,6 +83,43 @@ async function enterGeneral(data) {
             return data
         })
 }
+
+
+
+async function profilDisplay(){
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+
+    let paramProfile = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + token
+        },
+    }
+    return await fetch('https://b1messenger.esdlyon.dev/api/whoami', paramProfile)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+}
+function nameProfile() {
+    if (!token) {
+        console.error("Aucun token");
+        return null;
+    }
+
+    profilDisplay()
+        .then((data) => {
+            console.log(data);
+            displayNameProfile.innerHTML = data.displayName;
+            imagePP.src = data.imageUrl
+        })
+}
+
 
 async function privateMessageChrisna(){
     if (!token) {
